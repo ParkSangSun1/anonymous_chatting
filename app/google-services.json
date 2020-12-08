@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "505344410309",
+    "project_id": "chatting-anonymous-1c35c",
+    "storage_bucket": "chatting-anonymous-1c35c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:505344410309:android:76308fe29030f4399766ac",
+        "android_client_info": {
+          "package_name": "com.example.chatting_anonymous"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "505344410309-cmnptcng2bhlfbvd8boju8jjep9qflq4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMjQsioEXWfG_h6PZBLXJ9rbAvr1AnBiI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "505344410309-cmnptcng2bhlfbvd8boju8jjep9qflq4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
