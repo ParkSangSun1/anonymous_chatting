@@ -4,7 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.example.chatting_anonymous.Model.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.internal.InternalTokenProvider
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -39,13 +41,29 @@ class MainActivity : AppCompatActivity() {
                                 if (task.isSuccessful) {
 
                                     Log.d(TAG, "성공")
+
+                                    val uid =FirebaseAuth.getInstance().uid ?:""
+
+
+
+                                    val user = User(uid, username_area.text.toString())
+                                    //여기에서 데이터베이스에 넣음
+                                    val db = FirebaseFirestore.getInstance().collection("users")
+                                    db.document(uid)
+                                            .set(user)
+                                            .addOnSuccessListener {
+                                                Log.d(TAG, "데이터 베이스 성공")
+                                            }
+                                            .addOnFailureListener {
+                                                Log.d(TAG, "데이터 베이스 실패")
+                                            }
                                     val intent = Intent(this,ChatListActivity::class.java)
 
                                     //전의 액티비티 삭제
                                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                     startActivity(intent)
                                 } else {
-                                    Log.d(TAG, "성공")
+                                    Log.d(TAG, "실패")
 
                                 }
 
