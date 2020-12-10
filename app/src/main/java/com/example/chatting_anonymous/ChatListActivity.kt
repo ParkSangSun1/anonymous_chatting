@@ -1,5 +1,6 @@
 package com.example.chatting_anonymous
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -40,6 +41,16 @@ class ChatListActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
             }
+
+
+        //채팅방으로 들어가기
+        adapter.setOnItemClickListener{item, view ->
+            val intent = Intent(this, ChatRoomActivity::class.java)
+            startActivity(intent)
+
+
+        }
+
 
     }
 }
