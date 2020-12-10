@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
 
                     auth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(this) { task ->
+
                                 if (task.isSuccessful) {
 
                                     Log.d(TAG, "성공")
@@ -55,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                                                 Log.d(TAG, "데이터 베이스 성공")
                                             }
                                             .addOnFailureListener {
-                                                Log.d(TAG, "데이터 베이스 실패")
+                                                Log.d(TAG, "데이터 베이스 실패 $it")
                                             }
                                     val intent = Intent(this,ChatListActivity::class.java)
 
@@ -68,6 +69,10 @@ class MainActivity : AppCompatActivity() {
                                 }
 
                             }
+                            .addOnFailureListener {
+                                Log.d(TAG, "에러 $it")
+                            }
+
         }
     }
 }
