@@ -21,6 +21,7 @@ class ChatListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat_list)
 
 
+        //chatlist로 넘어감
         myChatList.setOnClickListener {
             val intent = Intent(this, MyRoomActivity::class.java)
             startActivity(intent)

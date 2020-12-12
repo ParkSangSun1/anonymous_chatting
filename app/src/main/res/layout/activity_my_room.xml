@@ -6,4 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".MyRoomActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_my_chat_list"
+        android:layout_width="358dp"
+        android:layout_height="584dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -117,6 +117,8 @@ class ChatRoomActivity : AppCompatActivity() {
         recyclerView_chat.adapter = adapter
         readRef.addChildEventListener(childEventListener)
 
+        val myRef_list=database.getReference("message-user-list")
+
         button.setOnClickListener {
 
             val message = editTextTextPersonName.text.toString()
@@ -128,6 +130,9 @@ class ChatRoomActivity : AppCompatActivity() {
             //받는사람
             val chat_get = ChatNewModel(yourUid.toString(), myUid.toString(),message, System.currentTimeMillis(),"you")
             myRef.child(yourUid.toString()).child(myUid.toString()).push().setValue(chat_get)
+
+            //나와 대화한 사람 마지막 메세지 db업데이트
+            myRef_list.child(myUid.toString()).child(yourUid.toString()).setValue(chat)
 
             editTextTextPersonName.setText("")
 
