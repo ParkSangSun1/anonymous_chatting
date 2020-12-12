@@ -31,9 +31,9 @@ class ChatListActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    adapter.add(Useritem(document.get("username").toString()))
-                    Log.d(TAG, document.get("username").toString())
-                    Log.d(TAG, "${document.id} => ${document.data}")
+                    adapter.add(Useritem(document.get("username").toString(), document.get("uid").toString()))
+               //     Log.d(TAG, document.get("username").toString())
+               //     Log.d(TAG, "${document.id} => ${document.data}")
                 }
 
                 recyclerview_list.adapter = adapter
@@ -45,7 +45,16 @@ class ChatListActivity : AppCompatActivity() {
 
         //채팅방으로 들어가기
         adapter.setOnItemClickListener{item, view ->
+
+         //   Log.d(TAG, (item as Useritem).name)
+         //   Log.d(TAG, (item as Useritem).uid)
+            val uid :String = (item as Useritem).uid
+            val name :String = (item as Useritem).name
+
+
             val intent = Intent(this, ChatRoomActivity::class.java)
+            intent.putExtra("yourUid",uid)
+            intent.putExtra("name", name)
             startActivity(intent)
 
 

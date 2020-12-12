@@ -10,11 +10,21 @@
         android:id="@+id/recyclerview_list"
         android:layout_width="354dp"
         android:layout_height="617dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="96dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/myChatList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="28dp"
+        android:text="myChatList"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

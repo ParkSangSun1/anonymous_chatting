@@ -5,7 +5,7 @@ import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.message_list_row.view.*
 
-class Useritem(val name:String) :Item<GroupieViewHolder>() {
+class Useritem(val name:String, val uid :String) :Item<GroupieViewHolder>() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.itemView.name.text=name
     }
