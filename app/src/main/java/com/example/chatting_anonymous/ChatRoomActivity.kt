@@ -5,8 +5,13 @@ import android.os.Bundle
 import android.util.Log
 import com.example.chatting_anonymous.Model.ChatLeftYou
 import com.example.chatting_anonymous.Model.ChatModel
+import com.example.chatting_anonymous.Model.ChatNewModel
 import com.example.chatting_anonymous.Model.ChatRightMe
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -41,52 +46,107 @@ class ChatRoomActivity : AppCompatActivity() {
 
 
         //데이터 베이스 선언
-        val db = FirebaseFirestore.getInstance()
+//        val db = FirebaseFirestore.getInstance()
+//
+//
+//        //데이터 불러오기
+//        db.collection("message")
+//                .orderBy("time")
+//                .get()
+//                .addOnSuccessListener { result->
+//                    for(document in result){
+//                        Log.d(TAG,document.toString())
+//
+//                        val senderUid = document.get("myUid")
+//                        val msg = document.get("message").toString()
+//
+//                        //만약 내가 보낸 메세지일때
+//                        if (senderUid!!.equals(myUid)){
+//                            adapter.add(ChatRightMe(msg))
+//
+//                        }
+//                        //만약 내가 보낸 메세지가 아닐때
+//                        else{
+//                            adapter.add(ChatLeftYou(msg))
+//
+//                        }
+//
+//                    }
+//
+//                    recyclerView_chat.adapter = adapter
+//
+//                }
 
+        val database = FirebaseDatabase.getInstance()
+        val myRef = database.getReference("message")
+        val readRef = database.getReference("message").child(myUid.toString()).child(yourUid.toString())
 
-        //데이터 불러오기
-        db.collection("message")
-                .orderBy("time")
-                .get()
-                .addOnSuccessListener { result->
-                    for(document in result){
-                        Log.d(TAG,document.toString())
+        val childEventListener = object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                Log.d(TAG, "snapshot : "+snapshot)
+                val model = snapshot.getValue(ChatNewModel::class.java)
+                val msg = model?.message.toString()
+                val who = model?.who
 
-                        val senderUid = document.get("myUid")
-                        val msg = document.get("message").toString()
-
-                        //만약 내가 보낸 메세지일때
-                        if (senderUid!!.equals(myUid)){
-                            adapter.add(ChatRightMe(msg))
-
-                        }
-                        //만약 내가 보낸 메세지가 아닐때
-                        else{
-                            adapter.add(ChatLeftYou(msg))
-
-                        }
-
-                    }
-
-                    recyclerView_chat.adapter = adapter
-
+                if(who =="me"){
+                    adapter.add(ChatRightMe(msg))
+                }else{
+                    adapter.add(ChatLeftYou(msg))
                 }
 
+
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        }
+        recyclerView_chat.adapter = adapter
+        readRef.addChildEventListener(childEventListener)
+
         button.setOnClickListener {
+
             val message = editTextTextPersonName.text.toString()
+
+            //보낸사람
+            val chat = ChatNewModel(myUid.toString(), yourUid.toString(),message, System.currentTimeMillis(),"me")
+            myRef.child(myUid.toString()).child(yourUid.toString()).push().setValue(chat)
+
+            //받는사람
+            val chat_get = ChatNewModel(yourUid.toString(), myUid.toString(),message, System.currentTimeMillis(),"you")
+            myRef.child(yourUid.toString()).child(myUid.toString()).push().setValue(chat_get)
+
             editTextTextPersonName.setText("")
 
-            val chat = ChatModel(myUid.toString(), yourUid.toString(),message, System.currentTimeMillis())
+//            val message = editTextTextPersonName.text.toString()
+//            editTextTextPersonName.setText("")
+//
+//            val chat = ChatModel(myUid.toString(), yourUid.toString(),message, System.currentTimeMillis())
+//
+//            db.collection("message")
+//                    .add(chat)
+//                    .addOnSuccessListener {
+//                        Log.d(TAG,"성공")
+//                    }
+//                    .addOnFailureListener {
+//                        Log.d(TAG,"실패")
+//
+//                    }
 
-            db.collection("message")
-                    .add(chat)
-                    .addOnSuccessListener {
-                        Log.d(TAG,"성공")
-                    }
-                    .addOnFailureListener {
-                        Log.d(TAG,"실패")
 
-                    }
         }
     }
 }
