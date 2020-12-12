@@ -6,6 +6,7 @@
     android:layout_height="65dp">
 
     <TextView
+        android:id="@+id/right_msg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
@@ -16,7 +17,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="name"
+        android:text="나"
         android:layout_margin="20dp"
         android:gravity="right"
         android:textStyle="bold"
