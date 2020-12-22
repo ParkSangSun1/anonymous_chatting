@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Chatting_anonymous">
-        <activity android:name=".MyRoomActivity"></activity>
+        <activity android:name=".StartLodingActivity"></activity>
+        <activity android:name=".MyRoomActivity" />
         <activity android:name=".ChatRoomActivity" />
         <activity android:name=".ChatListActivity" />
         <activity android:name=".LoginActivity" />
